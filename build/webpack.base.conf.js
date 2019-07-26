@@ -2,15 +2,16 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const vuxLoader = require('vux-loader')
 const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+//module.exports
 
-
-module.exports = {
+const  webpackConfig = {
   context: path.resolve(__dirname, '../'),
   //以main.js为入口文件
   entry: {
@@ -47,7 +48,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: utils.assetsPath('img/[name].[hash:7].[ext]'),
         }
       },
       {
@@ -81,3 +82,7 @@ module.exports = {
     child_process: 'empty'
   }
 }
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: ['vux-ui']
+})
